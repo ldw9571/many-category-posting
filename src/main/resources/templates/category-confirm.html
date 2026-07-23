@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>카테고리 확인</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+    <div class="page">
+        <h2>카테고리를 확인해주세요</h2>
+        <p style="color:var(--text-secondary); font-size:14px;" th:text="'주제: ' + ${topic}"></p>
+
+        <div class="card">
+            <div class="suggestion-box">
+                <span>✨</span>
+                <span>AI 추천: <strong th:text="${suggestion.categoryName}"></strong>
+                    (확신도 <span th:text="${suggestion.confidencePercent}"></span>%)</span>
+            </div>
+
+            <form method="post" th:action="@{/generate/confirm}">
+                <input type="hidden" name="topic" th:value="${topic}">
+                <input type="hidden" name="targetKeyword" th:value="${targetKeyword}">
+
+                <div class="category-grid">
+                    <label class="category-option" th:each="category : ${categories}">
+                        <input type="radio" name="categoryId" th:value="${category.id}"
+                               th:checked="${category.name == suggestion.categoryName}">
+                        <span th:text="${category.name}"></span>
+                        <span class="reg-tag" th:if="${category.regulated}">규제 체크</span>
+                    </label>
+                </div>
+
+                <button type="submit">카테고리 확정하고 생성 →</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

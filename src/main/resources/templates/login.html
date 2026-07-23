@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="auth-page">
+        <span class="brand">CONTENTLAB</span>
+        <h2>로그인</h2>
+        <p style="color:var(--text-secondary); font-size:14px; margin-bottom:24px;">고객사 계정으로 로그인해주세요.</p>
+
+        <div class="banner banner-error" th:if="${param.error}">이메일 또는 비밀번호가 올바르지 않습니다.</div>
+        <div class="banner banner-success" th:if="${param.logout}">로그아웃되었습니다.</div>
+        <div class="banner banner-success" th:if="${param.registered}">가입이 완료되었습니다. 로그인해주세요.</div>
+
+        <form method="post" th:action="@{/login}">
+            <label>이메일</label>
+            <input type="email" name="username" placeholder="name@company.com" required>
+
+            <label>비밀번호</label>
+            <input type="password" name="password" required>
+
+            <button type="submit" style="width:100%; justify-content:center;">로그인</button>
+        </form>
+
+        <p class="footer-links">계정이 없으신가요? <a th:href="@{/register}">회원가입</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<div th:fragment="nav" class="topbar">
+    <span class="brand">CONTENTLAB</span>
+    <nav>
+        <a th:href="@{/dashboard}">대시보드</a>
+        <a th:href="@{/generate}">새 글 생성</a>
+        <form method="post" th:action="@{/logout}" style="display:inline;">
+            <button type="submit" class="btn-outline" style="padding:4px 12px; font-size:13px;">로그아웃</button>
+        </form>
+    </nav>
+</div>

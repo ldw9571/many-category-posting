@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>대시보드</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+    <div class="page">
+        <h2 th:text="${client.businessName}"></h2>
+
+        <div class="card usage-card">
+            <div>
+                <div class="usage-label">이번 달 사용량</div>
+                <div class="usage-number">
+                    <span th:text="${client.usedThisMonth}"></span> / <span th:text="${client.monthlyLimit}"></span>건
+                </div>
+            </div>
+            <a href="/generate" class="btn">+ 새 글 생성</a>
+        </div>
+
+        <h3>발행 이력</h3>
+        <div class="card" style="padding:8px 20px;">
+            <table class="history">
+                <tr>
+                    <th>주제</th><th>카테고리</th><th>상태</th><th>날짜</th>
+                </tr>
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.topic}"></td>
+                    <td th:text="${post.category.name}"></td>
+                    <td th:text="${post.status}"></td>
+                    <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                </tr>
+                <tr th:if="${posts.isEmpty()}">
+                    <td colspan="4" style="text-align:center; color:var(--text-muted); padding:24px;">아직 생성한 글이 없습니다.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

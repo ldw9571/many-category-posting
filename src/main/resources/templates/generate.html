@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글 생성</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+    <div class="page">
+        <h2>어떤 주제로 글을 쓸까요?</h2>
+        <p style="color:var(--text-secondary); font-size:14px;">주제를 자유롭게 입력하면 AI가 카테고리를 추천해드려요.</p>
+
+        <div class="card">
+            <div class="banner banner-error" th:if="${errorMsg}" th:text="${errorMsg}"></div>
+
+            <form method="post" th:action="@{/generate/suggest}" th:object="${generateRequest}">
+                <label>주제</label>
+                <input type="text" th:field="*{topic}" placeholder="예: 지급명령 이의신청" required>
+
+                <label>타겟 키워드 (선택)</label>
+                <input type="text" th:field="*{targetKeyword}" placeholder="비워두면 주제에서 자동 추출">
+                <p class="hint">네이버 검색 노출을 노릴 핵심 키워드가 있다면 입력해주세요.</p>
+
+                <button type="submit">다음 →</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

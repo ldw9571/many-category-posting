@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>생성 결과</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+    <div class="page">
+        <h2>생성 완료</h2>
+
+        <div class="card">
+            <span class="pill pill-neutral" th:text="${post.category.name}"></span>
+            <span class="pill pill-danger" th:if="${post.complianceRisk}">⚠ 심의 위험 문구 감지 - 발행 전 검토 필요</span>
+            <span class="pill pill-success" th:unless="${post.complianceRisk}">심의 위험 없음</span>
+
+            <div class="content-box" th:text="${post.content}"></div>
+
+            <div class="meta-row">
+                <span th:text="'제목 길이 ' + ${post.titleLength} + '자'"></span>
+                <span th:text="'키워드 밀도 ' + ${post.keywordDensity} + '%'"></span>
+            </div>
+        </div>
+
+        <p class="footer-links"><a th:href="@{/dashboard}">← 대시보드로 돌아가기</a></p>
+    </div>
+</body>
+</html>
